@@ -41,10 +41,40 @@ def type_function(args):
     else:
         sys.stdout.write(f"{command}: not found\n")
 
+def parse_input(user_input):
+    """Parse raw input, preserving spaces inside quotes"""
+    args = []
+    current = ""
+    in_quote = False
+    quote_char = None
+
+    for char in user_input:
+        if char in ("'", '"') and not in_quote:
+            in_quote = True
+            quote_char = char
+        elif char == quote_char:
+            in_quote = False
+            quote_char = None
+        elif char == ' ' and not in_quote:
+            if current:
+                args.append(current)
+                current = ""
+        else:
+            current += char
+
+    if current:
+        args.append(current)
+
+    return args
+
+
 def main():
     while True:
         sys.stdout.write("$ ")
-        parts = input().split()
+        user_input = input()
+        if not user_input:
+            continue
+        parts = parse_input(user_input)
         if not parts:
             continue
         command, *args = parts
