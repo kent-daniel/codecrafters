@@ -19,7 +19,7 @@ def change_directory(path):
             os.chdir(path)
 
     except FileNotFoundError:
-        sys.stderr.write(f"cd: {path}: no such file or directory\n")
+        sys.stderr.write(f"cd: {path}: No such file or directory\n")
 
 def find_executable(command):
     if 'PATH' not in os.environ:
