@@ -2,13 +2,24 @@ import os
 import subprocess
 import sys
 
+
 BUILTIN_COMMANDS = {
     "echo": lambda args: sys.stdout.write(' '.join(args) + '\n'),
     "type": lambda args: type_function(args),
     "pwd": lambda args: sys.stdout.write(os.getcwd() + '\n'),
+    "cd": lambda args: change_directory(args[0] if args else ""),
     "exit": lambda args: sys.exit(0),
 }
 
+def change_directory(path):
+    try:
+        if path == "~":
+            os.chdir(os.path.expanduser("~"))
+        elif path != "":
+            os.chdir(path)
+
+    except FileNotFoundError:
+        sys.stderr.write(f"cd: {path}: no such file or directory\n")
 
 def find_executable(command):
     if 'PATH' not in os.environ:
