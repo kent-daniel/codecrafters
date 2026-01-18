@@ -5,6 +5,7 @@ import sys
 BUILTIN_COMMANDS = {
     "echo": lambda args: sys.stdout.write(' '.join(args) + '\n'),
     "type": lambda args: type_function(args),
+    "pwd": lambda args: sys.stdout.write(os.getcwd() + '\n'),
     "exit": lambda args: sys.exit(0),
 }
 
