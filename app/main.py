@@ -57,7 +57,7 @@ def parse_input(user_input):
         if char == '\\' and i + 1 < len(user_input) and in_quote:
             current += user_input[i+1]
             skip_next = True
-        elif char in ("'", '"') and not in_quote:
+        elif char in ("'") and not in_quote:
             in_quote = True
             quote_char = char
         elif char == quote_char:
